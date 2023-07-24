@@ -3,6 +3,7 @@ import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
 import { createClient } from "@supabase/supabase-js";
 import { useEffect, useState } from "react";
+import Navbar from "./components/Navbar";
 
 const supabase = createClient(
   "https://fuhffnswmsbjuhibaonu.supabase.co",
@@ -34,11 +35,17 @@ export default function App() {
   }, []);
 
   if (!session) {
-    return <Auth supabaseClient={supabase} appearance={{ theme: ThemeSupa }} />;
+    return (
+      <Auth
+        supabaseClient={supabase}
+        redirectTo={window.location.origin}
+        appearance={{ theme: ThemeSupa }}
+      />
+    );
   } else {
     return (
       <Flex direction="column" p="10px" m="20px">
-        <Heading m="20px">DANTRUM.COM</Heading>
+        <Navbar />
         <Heading m="20px">
           Welcome, {session.user.user_metadata.full_name}!
         </Heading>
